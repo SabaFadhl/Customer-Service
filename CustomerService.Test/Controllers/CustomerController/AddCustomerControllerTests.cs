@@ -75,7 +75,6 @@ namespace CustomerService.Test.Controllers.CustomerController
             Assert.Equal(400, objectResult.StatusCode);
         }
 
-
         [Fact]
         public void AddCustomer_Should_Return_BadRequest_For_Validate_Email()
         {

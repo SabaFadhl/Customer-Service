@@ -55,6 +55,7 @@ namespace CustomerService.Controllers.CustomerController
 
                 Customer customer = new Customer
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Name = addCustomerDto.Name,
                     Email = addCustomerDto.Email,
                     Password = addCustomerDto.Password,
@@ -65,7 +66,7 @@ namespace CustomerService.Controllers.CustomerController
 
                 await _unitOfWork.SaveChangesAsync();
 
-                return Ok(new { customer.Id });
+                return StatusCode(201, new ReturnGuidDto { Id = customer.Id });
             }
             catch (Exception ex)
             {
