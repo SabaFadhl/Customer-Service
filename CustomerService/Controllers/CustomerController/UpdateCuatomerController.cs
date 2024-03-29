@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace CustomerService.Controllers.CustomerController
@@ -36,9 +37,17 @@ namespace CustomerService.Controllers.CustomerController
             {
                 return BadRequest(new { errorMessage = "You must enter Email of the Customer." });
             }
+            
             if (string.IsNullOrWhiteSpace(updateCustomerDto.PhoneNumber))
             {
                 return BadRequest(new { errorMessage = "You must enter PhoneNumber of the Customer." });
+            }
+            else
+            {
+                if (!Regex.IsMatch(updateCustomerDto.PhoneNumber, @"^\+967\s\d{9}$"))
+                {
+                    return BadRequest(new { errorMessage = "Invalid PhoneNumber, The PhoneNumber must be like this format: +000 000000000" });
+                }
             }
             if (string.IsNullOrWhiteSpace(updateCustomerDto.Password))
             {

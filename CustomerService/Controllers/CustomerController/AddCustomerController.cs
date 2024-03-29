@@ -3,8 +3,10 @@ using CustomerService.Application.Interface;
 using CustomerService.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace CustomerService.Controllers.CustomerController
@@ -36,14 +38,24 @@ namespace CustomerService.Controllers.CustomerController
             {
                 return BadRequest(new { errorMessage = "You must enter Email of the Customer." });
             }
+            
             if (string.IsNullOrWhiteSpace(addCustomerDto.PhoneNumber))
             {
                 return BadRequest(new { errorMessage = "You must enter PhoneNumber of the Customer." });
+            }
+            else
+            {
+                if (!Regex.IsMatch(addCustomerDto.PhoneNumber, @"^\+967\s\d{9}$"))
+                {
+                    return BadRequest(new { errorMessage = "Invalid PhoneNumber, The PhoneNumber must be like this format: +000 000000000" });
+                }
             }
             if (string.IsNullOrWhiteSpace(addCustomerDto.Password))
             {
                 return BadRequest(new { errorMessage = "You must enter Password of the Customer." });
             }
+
+             
             #endregion
 
             try
