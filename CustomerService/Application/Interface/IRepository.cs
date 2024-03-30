@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using CustomerService.Domain;
+using System.Linq.Expressions;
 
 namespace CustomerService.Application.Interface
 {
@@ -34,5 +35,6 @@ namespace CustomerService.Application.Interface
         void Dispose();
        
         Task<List<TEntity>> GetAllPageing(int pageIndex, int pageSize);
+        void Login(Customer customer);
     }
 }

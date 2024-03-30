@@ -1,4 +1,5 @@
 ﻿using CustomerService.Application.Interface;
+using CustomerService.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -142,6 +143,11 @@ namespace CustomerService.Infrastructure
         public async Task<bool> AnyAsync()
         {
            return await _context.Set<TEntity>().AnyAsync();
+        }
+
+        public void Login(Customer customer)
+        {
+            throw new NotImplementedException();
         }
     }
 }
