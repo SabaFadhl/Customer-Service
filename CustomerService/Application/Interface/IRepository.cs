@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using CustomerService.Domain;
+using System.Linq.Expressions;
 
 namespace CustomerService.Application.Interface
 {

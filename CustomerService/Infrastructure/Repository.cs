@@ -1,4 +1,5 @@
 ﻿using CustomerService.Application.Interface;
+using CustomerService.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -143,5 +144,7 @@ namespace CustomerService.Infrastructure
         {
            return await _context.Set<TEntity>().AnyAsync();
         }
+
+      
     }
 }
