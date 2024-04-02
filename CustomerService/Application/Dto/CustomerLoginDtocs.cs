@@ -2,6 +2,7 @@
 {
     public class CustomerLoginDto
     {
+        //the login for name or email 
         private string _emailOrName;
         private string _password;
 

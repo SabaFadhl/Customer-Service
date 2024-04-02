@@ -145,9 +145,6 @@ namespace CustomerService.Infrastructure
            return await _context.Set<TEntity>().AnyAsync();
         }
 
-        public void Login(Customer customer)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

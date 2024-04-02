@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 
-namespace CustomerService.Controllers.CustomerLoginController { 
+namespace CustomerService.Controllers.CustomerController
+{
 
     [ApiController]
     [Route("api/Customer")]
@@ -61,7 +62,7 @@ namespace CustomerService.Controllers.CustomerLoginController {
                 if (customer != null)
                 {
                     // Successfully authenticated login                    
-                    return StatusCode(200, new { Id = customer.Id });
+                    return StatusCode(200, new { customer.Id });
                 }
                 else
                 {  // Failed to log in
@@ -73,8 +74,8 @@ namespace CustomerService.Controllers.CustomerLoginController {
                 return StatusCode(500, ex.Message);
             }
         }
-              
-            
 
-        }
+
+
     }
+}

@@ -35,6 +35,5 @@ namespace CustomerService.Application.Interface
         void Dispose();
        
         Task<List<TEntity>> GetAllPageing(int pageIndex, int pageSize);
-        void Login(Customer customer);
     }
 }
