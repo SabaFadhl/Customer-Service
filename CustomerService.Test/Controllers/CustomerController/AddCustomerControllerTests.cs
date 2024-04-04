@@ -46,6 +46,7 @@ namespace CustomerService.Test.Controllers.CustomerController
         {
             // Arrange
             var request = _fixture.Create<AddCustomerDto>();
+            request.PhoneNumber = "+967 772345678";
             var customer = _mapperMock.Map<AddCustomerDto, Customer>(request);
             _serviceMock.Setup(x => x.Customer.Add(customer)).Verifiable();
 
