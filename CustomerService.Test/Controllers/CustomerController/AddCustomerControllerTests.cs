@@ -47,7 +47,7 @@ namespace CustomerService.Test.Controllers.CustomerController
             // Arrange
             var request = _fixture.Create<AddCustomerDto>();
             var customer = _mapperMock.Map<AddCustomerDto, Customer>(request);
-            _serviceMock.Setup(x => x.GetRepository<Customer>().Add(customer)).Verifiable();
+            _serviceMock.Setup(x => x.Customer.Add(customer)).Verifiable();
 
             // Act
             var result = _controller.Add(request);
@@ -64,7 +64,7 @@ namespace CustomerService.Test.Controllers.CustomerController
             // Arrange
             var request = _fixture.Create<AddCustomerDto>();
             var customer = _mapperMock.Map<AddCustomerDto, Customer>(request);
-            _serviceMock.Setup(x => x.GetRepository<Customer>().Add(customer)).Verifiable();
+            _serviceMock.Setup(x => x.Customer.Add(customer)).Verifiable();
             request.Name = null;
 
             // Act
@@ -81,7 +81,7 @@ namespace CustomerService.Test.Controllers.CustomerController
             // Arrange
             var request = _fixture.Create<AddCustomerDto>();
             var customer = _mapperMock.Map<AddCustomerDto, Customer>(request);
-            _serviceMock.Setup(x => x.GetRepository<Customer>().Add(customer)).Verifiable();
+            _serviceMock.Setup(x => x.Customer.Add(customer)).Verifiable();
             request.Email = null;
 
             // Act
@@ -98,7 +98,7 @@ namespace CustomerService.Test.Controllers.CustomerController
             // Arrange
             var request = _fixture.Create<AddCustomerDto>();
             var customer = _mapperMock.Map<AddCustomerDto, Customer>(request);
-            _serviceMock.Setup(x => x.GetRepository<Customer>().Add(customer)).Verifiable();
+            _serviceMock.Setup(x => x.Customer.Add(customer)).Verifiable();
             request.Password = null;
 
             // Act
@@ -115,7 +115,7 @@ namespace CustomerService.Test.Controllers.CustomerController
             // Arrange
             var request = _fixture.Create<AddCustomerDto>();
             var customer = _mapperMock.Map<AddCustomerDto, Customer>(request);
-            _serviceMock.Setup(x => x.GetRepository<Customer>().Add(customer)).Verifiable();
+            _serviceMock.Setup(x => x.Customer.Add(customer)).Verifiable();
             request.PhoneNumber = null;
 
             // Act

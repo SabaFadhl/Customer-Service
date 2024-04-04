@@ -40,7 +40,7 @@ namespace CustomerService.Controllers.CustomerController
             #endregion
             /* try
              {
-                 if ((await _unitOfWork.GetRepository<Customer>().SingleOrDefaultAsync(u=> u.Name != loginCustomerLoginDto.Name && u.Password == loginCustomerLoginDto.Password)) == null)
+                 if ((await _unitOfWork.Customer.SingleOrDefaultAsync(u=> u.Name != loginCustomerLoginDto.Name && u.Password == loginCustomerLoginDto.Password)) == null)
                  {
 
                      // Successfully authenticated login
@@ -58,7 +58,7 @@ namespace CustomerService.Controllers.CustomerController
              }*/
             try
             {
-                Customer customer = await _unitOfWork.GetRepository<Customer>().SingleOrDefaultAsync(u => (u.Email == loginCustomerLoginDto.EmailOrName || u.Name == loginCustomerLoginDto.EmailOrName) && u.Password == loginCustomerLoginDto.Password);
+                Customer customer = await _unitOfWork.Customer.SingleOrDefaultAsync(u => (u.Email == loginCustomerLoginDto.EmailOrName || u.Name == loginCustomerLoginDto.EmailOrName) && u.Password == loginCustomerLoginDto.Password);
                 if (customer != null)
                 {
                     // Successfully authenticated login                    
