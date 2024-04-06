@@ -43,19 +43,6 @@ namespace CustomerService.Controllers.CustomerController
                  if ((await _unitOfWork.Customer.SingleOrDefaultAsync(u=> u.Name != loginCustomerLoginDto.Name && u.Password == loginCustomerLoginDto.Password)) == null)
                  {
 
-                     // Successfully authenticated login
-                     return Ok("Login successful");
-                 }
-
-                 else
-                 {  // Failed to log in
-                     return BadRequest(new { errorMessage = "You  failed to log in with the wrong name or email." });
-                 }
-             }
-             catch (Exception ex)
-             {
-                 return StatusCode(500, ex.Message);
-             }*/
             try
             {
                 Customer customer = await _unitOfWork.Customer.SingleOrDefaultAsync(u => (u.Email == loginCustomerLoginDto.EmailOrName || u.Name == loginCustomerLoginDto.EmailOrName) && u.Password == loginCustomerLoginDto.Password);
