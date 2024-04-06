@@ -5,6 +5,7 @@ using CustomerService.Infrastructure;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using System.Text.RegularExpressions;
 
 namespace CustomerService.Controllers.CustomerController
 {
@@ -19,7 +20,6 @@ namespace CustomerService.Controllers.CustomerController
         {
             _unitOfWork = unitOfWork;
         }
-
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(CustomerLoginDto loginCustomerLoginDto)
@@ -71,7 +71,7 @@ namespace CustomerService.Controllers.CustomerController
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(400, ex.Message);
             }
         }
 
