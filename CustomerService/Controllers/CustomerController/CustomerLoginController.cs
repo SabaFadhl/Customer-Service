@@ -5,6 +5,7 @@ using CustomerService.Infrastructure;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using System.Text.RegularExpressions;
 
 namespace CustomerService.Controllers.CustomerController
 {
@@ -19,7 +20,6 @@ namespace CustomerService.Controllers.CustomerController
         {
             _unitOfWork = unitOfWork;
         }
-
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(CustomerLoginDto loginCustomerLoginDto)
@@ -38,24 +38,6 @@ namespace CustomerService.Controllers.CustomerController
                 return BadRequest(new { errorMessage = "You must enter Password." });
             }
             #endregion
-            /* try
-             {
-                 if ((await _unitOfWork.GetRepository<Customer>().SingleOrDefaultAsync(u=> u.Name != loginCustomerLoginDto.Name && u.Password == loginCustomerLoginDto.Password)) == null)
-                 {
-
-                     // Successfully authenticated login
-                     return Ok("Login successful");
-                 }
-
-                 else
-                 {  // Failed to log in
-                     return BadRequest(new { errorMessage = "You  failed to log in with the wrong name or email." });
-                 }
-             }
-             catch (Exception ex)
-             {
-                 return StatusCode(500, ex.Message);
-             }*/
             try
             {
                 Customer customer = await _unitOfWork.GetRepository<Customer>().SingleOrDefaultAsync(u => (u.Email == loginCustomerLoginDto.EmailOrName || u.Name == loginCustomerLoginDto.EmailOrName) && u.Password == loginCustomerLoginDto.Password);
@@ -71,7 +53,7 @@ namespace CustomerService.Controllers.CustomerController
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(400, ex.Message);
             }
         }
 
