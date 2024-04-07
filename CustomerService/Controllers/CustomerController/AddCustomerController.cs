@@ -1,4 +1,5 @@
 ﻿using CustomerService.Application.Dto;
+using CustomerService.Application.Dto.Customer;
 using CustomerService.Application.Interface;
 using CustomerService.Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace CustomerService.Controllers.CustomerController
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddCustomerDto addCustomerDto)
+        public async Task<IActionResult> Add(AddCustomerAddressDto addCustomerDto)
         {
             #region Validation Fields
             if (addCustomerDto == null)
@@ -60,7 +61,7 @@ namespace CustomerService.Controllers.CustomerController
 
             try
             {
-                if ((await _unitOfWork.Customer.SingleOrDefaultAsync(c => c.Name == addCustomerDto.Name || c.Email == addCustomerDto.Email)) != null)
+                if ((await _unitOfWork.GetRepository<Customer>().SingleOrDefaultAsync(c => c.Name == addCustomerDto.Name || c.Email == addCustomerDto.Email)) != null)
                 {
                     return BadRequest(new { errorMessage = "This Customer already exists with the same name or email." });
                 }
@@ -74,7 +75,7 @@ namespace CustomerService.Controllers.CustomerController
                     PhoneNumber = addCustomerDto.PhoneNumber
                 };
 
-                _unitOfWork.Customer.Add(customer);
+                _unitOfWork.GetRepository<Customer>().Add(customer);
 
                 await _unitOfWork.SaveChangesAsync();
 

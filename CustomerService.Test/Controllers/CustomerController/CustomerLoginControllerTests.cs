@@ -1,6 +1,5 @@
 ﻿using AutoFixture;
 using AutoMapper;
-using CustomerService.Application.Dto;
 using CustomerService.Application.Interface;
 using CustomerService.Controllers.CustomerController;
 using CustomerService.Domain;
@@ -16,11 +15,12 @@ using CustomerService.Test.Controllers;
 using System.Diagnostics.Metrics;
 using Microsoft.AspNetCore.Identity;
 using System.Text.RegularExpressions;
+using CustomerService.Application.Dto.Customer;
 
 
 namespace CustomerService.Test.Controllers.CustomerController
 {
-    
+
     public class CustomerLoginControllerTests
     {
         private readonly IFixture _fixture;

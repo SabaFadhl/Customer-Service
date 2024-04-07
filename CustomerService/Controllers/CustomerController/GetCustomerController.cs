@@ -1,4 +1,4 @@
-﻿using CustomerService.Application.Dto;
+﻿using CustomerService.Application.Dto.Customer;
 using CustomerService.Application.Interface;
 using CustomerService.Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +25,11 @@ namespace CustomerService.Controllers.CustomerController
         {
             try
             {
-                Customer customer = await _unitOfWork.Customer.GetById(customerId);
+                Customer customer = await _unitOfWork.GetRepository<Customer>().GetById(customerId);
 
                 if (customer != null)
                 {
-                    ViewCustomerDto viewCustomerDto = new ViewCustomerDto
+                    ViewCustomerAddressDto viewCustomerDto = new ViewCustomerAddressDto
                     {
                         PhoneNumber = customer.PhoneNumber,
                         Id = customer.Id,

@@ -1,4 +1,4 @@
-﻿using CustomerService.Application.Dto;
+﻿using CustomerService.Application.Dto.Customer;
 using CustomerService.Application.Interface;
 using CustomerService.Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +22,7 @@ namespace CustomerService.Controllers.CustomerController
         }
 
         [HttpPut("{customerId}")]
-        public async Task<IActionResult> Update(string customerId, UpdateCustomerDto updateCustomerDto)
+        public async Task<IActionResult> Update(string customerId, UpdateCustomerAddressDto updateCustomerDto)
         {
             #region Validation Fields
             if (updateCustomerDto == null)
@@ -57,7 +57,7 @@ namespace CustomerService.Controllers.CustomerController
 
             try
             {
-                Customer customer = await _unitOfWork.Customer.GetById(customerId);                                                 
+                Customer customer = await _unitOfWork.GetRepository<Customer>().GetById(customerId);                                                 
                 if (customer != null)
                 {                   
                     customer.Name = updateCustomerDto.Name;
@@ -65,7 +65,7 @@ namespace CustomerService.Controllers.CustomerController
                     customer.Password = updateCustomerDto.Password;
                     customer.PhoneNumber = updateCustomerDto.PhoneNumber;
 
-                    _unitOfWork.Customer.Update(customer);
+                    _unitOfWork.GetRepository<Customer>().Update(customer);
 
                     await _unitOfWork.SaveChangesAsync();
 

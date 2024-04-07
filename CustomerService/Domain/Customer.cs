@@ -19,6 +19,7 @@ namespace CustomerService.Domain
 
         [Key]
         public string Id { get => _id; set => _id = value; }
+
         [MaxLength(150, ErrorMessage = "This field must be less than or equals 150 character")]
         public string Name { get => _name; set => _name = value; }
        

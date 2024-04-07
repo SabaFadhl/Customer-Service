@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\CustomerLoginController\**" />
+    <Content Remove="Controllers\CustomerLoginController\**" />
+    <EmbeddedResource Remove="Controllers\CustomerLoginController\**" />
+    <None Remove="Controllers\CustomerLoginController\**" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2">
 		  <PrivateAssets>all</PrivateAssets>
@@ -14,10 +21,6 @@
 	  </PackageReference>
 	  <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
 	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\CustomerLoginController\" />
   </ItemGroup>
 
 </Project>
