@@ -25,7 +25,7 @@ namespace CustomerService.Controllers.CustomerController
         {
             try
             {
-                List<Customer> customers = await _unitOfWork.GetRepository<Customer>().GetAllPageing(pageIndex, pageSize);
+                List<Customer> customers = await _unitOfWork.Customer.GetAllPageing(pageIndex, pageSize);
 
                 List<ViewCustomerDto> viewCustomerDtos = new();
                 foreach (Customer item in customers)

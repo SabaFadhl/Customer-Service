@@ -57,7 +57,7 @@ namespace CustomerService.Controllers.CustomerController
 
             try
             {
-                Customer customer = await _unitOfWork.GetRepository<Customer>().GetById(customerId);                                                 
+                Customer customer = await _unitOfWork.Customer.GetById(customerId);                                                 
                 if (customer != null)
                 {                   
                     customer.Name = updateCustomerDto.Name;
@@ -65,7 +65,7 @@ namespace CustomerService.Controllers.CustomerController
                     customer.Password = updateCustomerDto.Password;
                     customer.PhoneNumber = updateCustomerDto.PhoneNumber;
 
-                    _unitOfWork.GetRepository<Customer>().Update(customer);
+                    _unitOfWork.Customer.Update(customer);
 
                     await _unitOfWork.SaveChangesAsync();
 

@@ -25,10 +25,10 @@ namespace CustomerService.Controllers.CustomerController
         {
             try
             {
-                Customer customer = await _unitOfWork.GetRepository<Customer>().GetById(customerId);
+                Customer customer = await _unitOfWork.Customer.GetById(customerId);
                 if (customer != null)
                 {
-                    _unitOfWork.GetRepository<Customer>().Remove(customer);
+                    _unitOfWork.Customer.Remove(customer);
 
                     await _unitOfWork.SaveChangesAsync();
 

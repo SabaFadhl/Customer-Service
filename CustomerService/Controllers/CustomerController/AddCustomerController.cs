@@ -60,7 +60,7 @@ namespace CustomerService.Controllers.CustomerController
 
             try
             {
-                if ((await _unitOfWork.GetRepository<Customer>().SingleOrDefaultAsync(c => c.Name == addCustomerDto.Name || c.Email == addCustomerDto.Email)) != null)
+                if ((await _unitOfWork.Customer.SingleOrDefaultAsync(c => c.Name == addCustomerDto.Name || c.Email == addCustomerDto.Email)) != null)
                 {
                     return BadRequest(new { errorMessage = "This Customer already exists with the same name or email." });
                 }
@@ -74,7 +74,7 @@ namespace CustomerService.Controllers.CustomerController
                     PhoneNumber = addCustomerDto.PhoneNumber
                 };
 
-                _unitOfWork.GetRepository<Customer>().Add(customer);
+                _unitOfWork.Customer.Add(customer);
 
                 await _unitOfWork.SaveChangesAsync();
 
