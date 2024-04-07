@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService", "Customer
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F83DCEF8-9963-407D-A5EC-2F2712EF304A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerService.Test", "CustomerService.Test\CustomerService.Test.csproj", "{91D5F178-D1AF-4BBA-BF0F-AAB714EF6794}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.Test", "CustomerService.Test\CustomerService.Test.csproj", "{91D5F178-D1AF-4BBA-BF0F-AAB714EF6794}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code", "Code", "{44148700-4D08-47EE-A191-4540E5E55534}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +30,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{EB2A1B11-E837-4AD0-82F1-7C2CD50FD284} = {44148700-4D08-47EE-A191-4540E5E55534}
 		{91D5F178-D1AF-4BBA-BF0F-AAB714EF6794} = {F83DCEF8-9963-407D-A5EC-2F2712EF304A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
