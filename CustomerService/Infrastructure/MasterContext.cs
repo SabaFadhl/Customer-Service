@@ -26,6 +26,11 @@ namespace CustomerService.Infrastructure
                 entity.Property(e => e.CreateTime)
                     .HasColumnType("timestamp without time zone")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.UpdateTime)
+                   .HasColumnType("timestamp without time zone")
+                   .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
                 entity.Property(e => e.Id)
                     .HasDefaultValueSql("uuid_generate_v4()");
             });
@@ -34,7 +39,11 @@ namespace CustomerService.Infrastructure
             {
                 entity.Property(e => e.CreateTime)
                     .HasColumnType("timestamp without time zone")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");                
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.UpdateTime)
+                    .HasColumnType("timestamp without time zone")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
             });
         }
     }

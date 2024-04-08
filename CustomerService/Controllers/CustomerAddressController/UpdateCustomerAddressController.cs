@@ -22,15 +22,15 @@ namespace CustomerService.Controllers.CustomerAddressController
             _unitOfWork = unitOfWork;
         }
 
-        [HttpPut("{customerId}")]
-        public async Task<IActionResult> Update(string customerId, UpdateCustomerAddressDto updateCustomerDto)
+        [HttpPut("{customerAddressId}")]
+        public async Task<IActionResult> Update(string customerAddressId, UpdateCustomerAddressDto updateCustomerAddressDto)
         {
             #region Validation Fields
-            if (updateCustomerDto == null)
+            if (updateCustomerAddressDto == null)
             {
                 return BadRequest(new { errorMessage = "The Customer is null." });
             }
-            if (string.IsNullOrWhiteSpace(updateCustomerDto.Address))
+            if (string.IsNullOrWhiteSpace(updateCustomerAddressDto.Address))
             {
                 return BadRequest(new { errorMessage = "You must enter Address." });
             }
@@ -39,17 +39,18 @@ namespace CustomerService.Controllers.CustomerAddressController
 
             try
             {
-                CustomerAddress customer = await _unitOfWork.CustomerAddress.GetById(customerId);                                                 
-                if (customer != null)
-                {                   
-                    //customer.Name = updateCustomerDto.Name;
-                    //customer.Email = updateCustomerDto.Email;
-                    //customer.Password = updateCustomerDto.Password;
-                    //customer.PhoneNumber = updateCustomerDto.PhoneNumber;
+                CustomerAddress customerAddress = await _unitOfWork.CustomerAddress.GetById(customerAddressId);                                                 
+                if (customerAddress != null)
+                {
+                    customerAddress.Address = updateCustomerAddressDto.Address;
+                    customerAddress.UpdateTime = DateTime.Now;
+                    customerAddress.GeoLat = updateCustomerAddressDto.GeoLat;
+                    customerAddress.GeoLon = updateCustomerAddressDto.GeoLon;
+                    customerAddress.Id = customerAddressId;
 
-                    //_unitOfWork.GetRepository<Customer>().Update(customer);
+                    _unitOfWork.CustomerAddress.Update(customerAddress);
 
-                    //await _unitOfWork.SaveChangesAsync();
+                    await _unitOfWork.SaveChangesAsync();
 
                     return NoContent();
                 }

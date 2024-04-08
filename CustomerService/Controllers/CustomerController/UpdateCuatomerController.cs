@@ -64,6 +64,7 @@ namespace CustomerService.Controllers.CustomerController
                     customer.Email = updateCustomerDto.Email;
                     customer.Password = updateCustomerDto.Password;
                     customer.PhoneNumber = updateCustomerDto.PhoneNumber;
+                    customer.UpdateTime = DateTime.Now;
 
                     _unitOfWork.Customer.Update(customer);
 
