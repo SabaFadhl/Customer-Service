@@ -1,6 +1,6 @@
 ﻿namespace CustomerService.Application.Dto.Customer
 {
-    public class ViewCustomerAddressDto
+    public class ViewCustomerDto
     {
         private string _id;
         private string _name;

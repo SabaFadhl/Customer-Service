@@ -13,8 +13,7 @@ namespace CustomerService.Infrastructure
         }
 
         public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; }
-        
+        public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; }        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,8 +28,14 @@ namespace CustomerService.Infrastructure
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
                 entity.Property(e => e.Id)
                     .HasDefaultValueSql("uuid_generate_v4()");
-            });           
+            });
 
+            modelBuilder.Entity<CustomerAddress>(entity =>
+            {
+                entity.Property(e => e.CreateTime)
+                    .HasColumnType("timestamp without time zone")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");                
+            });
         }
     }
 }

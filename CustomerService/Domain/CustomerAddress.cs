@@ -18,6 +18,9 @@ namespace CustomerService.Domain
         public string Id { get => _id; set => _id = value; }
 
         [Required]
+        public string CustomerId { get => _customerId; set => _customerId = value; }
+
+        [Required]
         [MaxLength(500, ErrorMessage = "This field must be less than or equals 150 character")]
         public string Address { get => _address; set => _address = value; }  
         
@@ -27,5 +30,6 @@ namespace CustomerService.Domain
 
         public DateTime CreateTime { get => _createTime; set => _createTime = value; }
         public DateTime UpdateTime { get => _updateTime; set => _updateTime = value; }
+       
     }
 }

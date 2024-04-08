@@ -30,6 +30,7 @@ namespace CustomerService.Domain
 
         [MaxLength(500, ErrorMessage = "This field must be less than or equals 150 character")]
         public string Password { get => _password; set => _password = value; }
+
         [MaxLength(50, ErrorMessage = "This field must be less than or equals 150 character")]
         public string PhoneNumber { get => _phoneNumber; set => _phoneNumber = value; }         
         public DateTime CreateTime { get => _createTime; set => _createTime = value; }

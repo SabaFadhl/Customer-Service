@@ -25,11 +25,11 @@ namespace CustomerService.Controllers.CustomerController
         {
             try
             {
-                Customer customer = await _unitOfWork.GetRepository<Customer>().GetById(customerId);
+                Customer customer = await _unitOfWork.Customer.GetById(customerId);
 
                 if (customer != null)
                 {
-                    ViewCustomerAddressDto viewCustomerDto = new ViewCustomerAddressDto
+                    ViewCustomerDto viewCustomerDto = new ViewCustomerDto
                     {
                         PhoneNumber = customer.PhoneNumber,
                         Id = customer.Id,

@@ -1,4 +1,5 @@
 ﻿using CustomerService.Application.Dto;
+using CustomerService.Application.Dto.Common;
 using CustomerService.Application.Dto.Customer;
 using CustomerService.Application.Interface;
 using CustomerService.Domain;
@@ -24,7 +25,7 @@ namespace CustomerService.Controllers.CustomerController
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddCustomerAddressDto addCustomerDto)
+        public async Task<IActionResult> Add(AddCustomerDto addCustomerDto)
         {
             #region Validation Fields
             if (addCustomerDto == null)
@@ -48,7 +49,7 @@ namespace CustomerService.Controllers.CustomerController
             {
                 if (!Regex.IsMatch(addCustomerDto.PhoneNumber, @"^\+967\s\d{9}$"))
                 {
-                    return BadRequest(new { errorMessage = "Invalid PhoneNumber, The PhoneNumber must be like this format: +000 000000000" });
+                    return BadRequest(new { errorMessage = "Invalid PhoneNumber, The PhoneNumber must be like this format: +967 000000000" });
                 }
             }
             if (string.IsNullOrWhiteSpace(addCustomerDto.Password))
@@ -61,7 +62,7 @@ namespace CustomerService.Controllers.CustomerController
 
             try
             {
-                if ((await _unitOfWork.GetRepository<Customer>().SingleOrDefaultAsync(c => c.Name == addCustomerDto.Name || c.Email == addCustomerDto.Email)) != null)
+                if ((await _unitOfWork.Customer.SingleOrDefaultAsync(c => c.Name == addCustomerDto.Name || c.Email == addCustomerDto.Email)) != null)
                 {
                     return BadRequest(new { errorMessage = "This Customer already exists with the same name or email." });
                 }
@@ -75,7 +76,7 @@ namespace CustomerService.Controllers.CustomerController
                     PhoneNumber = addCustomerDto.PhoneNumber
                 };
 
-                _unitOfWork.GetRepository<Customer>().Add(customer);
+                _unitOfWork.Customer.Add(customer);
 
                 await _unitOfWork.SaveChangesAsync();
 

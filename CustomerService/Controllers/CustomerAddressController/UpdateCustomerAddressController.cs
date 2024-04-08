@@ -8,15 +8,15 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
-namespace CustomerService.Controllers.CustomerController
+namespace CustomerService.Controllers.CustomerAddressController
 {
-    [Route("api/Customer")]
+    [Route("api/CustomerAddress")]
     [ApiController]
-    public class UpdateCuatomerController : ControllerBase
+    public class UpdateCustomerAddressController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateCuatomerController(IUnitOfWork unitOfWork)
+        public UpdateCustomerAddressController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -57,23 +57,23 @@ namespace CustomerService.Controllers.CustomerController
 
             try
             {
-                Customer customer = await _unitOfWork.Customer.GetById(customerId);                                                 
+                CustomerAddress customer = await _unitOfWork.CustomerAddress.GetById(customerId);                                                 
                 if (customer != null)
                 {                   
-                    customer.Name = updateCustomerDto.Name;
-                    customer.Email = updateCustomerDto.Email;
-                    customer.Password = updateCustomerDto.Password;
-                    customer.PhoneNumber = updateCustomerDto.PhoneNumber;
+                    //customer.Name = updateCustomerDto.Name;
+                    //customer.Email = updateCustomerDto.Email;
+                    //customer.Password = updateCustomerDto.Password;
+                    //customer.PhoneNumber = updateCustomerDto.PhoneNumber;
 
-                    _unitOfWork.Customer.Update(customer);
+                    //_unitOfWork.GetRepository<Customer>().Update(customer);
 
-                    await _unitOfWork.SaveChangesAsync();
+                    //await _unitOfWork.SaveChangesAsync();
 
                     return NoContent();
                 }
                 else
                 {
-                    return NotFound(new { ErrorMesssage="There is no Customer with given Id."});
+                    return NotFound(new { ErrorMesssage="There is no Customer with given Id."});                  
                 }
             }
             catch (Exception ex)
