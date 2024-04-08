@@ -35,8 +35,7 @@ namespace CustomerService.Controllers.CustomerController
                         CreateTime = item.CreateTime,
                         Email = item.Email,
                         Id = item.Id,
-                        Name = item.Name,
-                        Password = item.Password,
+                        Name = item.Name,                     
                         PhoneNumber = item.PhoneNumber,
                         UpdateTime = item.UpdateTime,
                     });
