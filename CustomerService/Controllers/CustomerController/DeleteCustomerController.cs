@@ -1,6 +1,7 @@
 ﻿using CustomerService.Application.Dto;
 using CustomerService.Application.Interface;
 using CustomerService.Domain;
+using CustomerService.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Eventing.Reader;
@@ -24,7 +25,7 @@ namespace CustomerService.Controllers.CustomerController
         public async Task<IActionResult> Delete(string customerId)
         {
             try
-            {
+            {             
                 Customer customer = await _unitOfWork.Customer.GetById(customerId);
                 if (customer != null)
                 {

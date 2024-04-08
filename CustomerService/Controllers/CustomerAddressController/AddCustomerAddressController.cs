@@ -44,15 +44,11 @@ namespace CustomerService.Controllers.CustomerAddressController
             #endregion
 
             try
-            {
-
-                bool _runningFromUnitTest = AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.StartsWith("CustomerService.Test"));
-
-                if (!_runningFromUnitTest)
-                    if ((await _unitOfWork.Customer.SingleOrDefaultAsync(c => c.Id == AddCustomerAddressDto.CustomerId) == null))
-                    {
-                        return BadRequest(new { errorMessage = "There is not customer with this Id '" + AddCustomerAddressDto.CustomerId + "'" });
-                    }
+            {           
+                if ((await _unitOfWork.Customer.SingleOrDefaultAsync(c => c.Id == AddCustomerAddressDto.CustomerId) == null))
+                {
+                    return BadRequest(new { errorMessage = "There is not customer with this Id '" + AddCustomerAddressDto.CustomerId + "'" });
+                }
 
                 CustomerAddress customerAddress = new CustomerAddress
                 {

@@ -1,8 +1,6 @@
-﻿
-
-using AutoFixture;
+﻿using AutoFixture;
 using AutoMapper;
-using CustomerService.Application.Dto.CustomerAddress22;
+using CustomerService.Application.Dto.CustomerAddress;
 using CustomerService.Application.Dto.Common;
 using CustomerService.Application.Interface;
 using CustomerService.Controllers.CustomerAddressController;
@@ -11,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using CustomerService.Application.Dto.Customer;
 using CustomerService.Controllers.CustomerController;
+using System.Linq.Expressions;
 
 namespace CustomerService.Test.Controllers.CustomerAddressController
 {
@@ -38,10 +37,13 @@ namespace CustomerService.Test.Controllers.CustomerAddressController
         }
 
         [Fact]
-        public void AddCustomerAddress_ShouldRetunGuid()
+        public void AddCustomerAddress_ShouldRetun_Guid()
         {
-            // Arrange         
-            var requestCustomerAddress = _fixture.Create<AddCustomerAddressDto>();          
+            // Arrange
+            Customer request = _fixture.Create<Customer>();
+            _serviceMock.Setup(x => x.Customer.SingleOrDefaultAsync(It.IsAny<Expression<Func<Customer, bool>>>())).ReturnsAsync(request);
+
+            AddCustomerAddressDto requestCustomerAddress = _fixture.Create<AddCustomerAddressDto>();
             var customerAddress = _mapperMock.Map<AddCustomerAddressDto, CustomerAddress>(requestCustomerAddress);
             _serviceMock.Setup(x => x.CustomerAddress.Add(customerAddress)).Verifiable();
 
@@ -52,6 +54,25 @@ namespace CustomerService.Test.Controllers.CustomerAddressController
             var objectResult = Assert.IsAssignableFrom<ObjectResult>(resultCustomerAddress.Result);
             bool isValidGuid = Guid.TryParse(((ReturnGuidDto)objectResult.Value).Id, out Guid guidResult);
             Assert.True(isValidGuid);
-        }                             
+        }
+
+        [Fact]
+        public void AddCustomerAddress_ShouldRetun_BadRequest_when_wrong_CustomerId()
+        {
+            // Arrange
+            Customer request = _fixture.Create<Customer>();
+            _serviceMock.Setup(x => x.Customer.SingleOrDefaultAsync(It.IsAny<Expression<Func<Customer, bool>>>())).ReturnsAsync((Customer)null);
+
+            AddCustomerAddressDto requestCustomerAddress = _fixture.Create<AddCustomerAddressDto>();
+            var customerAddress = _mapperMock.Map<AddCustomerAddressDto, CustomerAddress>(requestCustomerAddress);
+            _serviceMock.Setup(x => x.CustomerAddress.Add(customerAddress)).Verifiable();
+
+            // Act         
+            var resultCustomerAddress = _controllerAddCustomerAddress.Add(requestCustomerAddress);
+
+            // Assert                                
+            var objectResult = Assert.IsAssignableFrom<BadRequestObjectResult>(resultCustomerAddress.Result);
+            Assert.Equal(400, objectResult.StatusCode);
+        }
     }
 }

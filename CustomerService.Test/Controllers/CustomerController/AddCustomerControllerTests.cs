@@ -3,7 +3,7 @@ using AutoMapper;
 using Castle.Core.Resource;
 using CustomerService.Application.Dto.Common;
 using CustomerService.Application.Dto.Customer;
-using CustomerService.Application.Dto.CustomerAddress22;
+using CustomerService.Application.Dto.CustomerAddress;
 using CustomerService.Application.Interface;
 using CustomerService.Controllers.CustomerController;
 using CustomerService.Domain;
