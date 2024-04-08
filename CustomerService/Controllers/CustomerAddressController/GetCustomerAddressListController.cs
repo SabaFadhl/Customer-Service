@@ -1,4 +1,5 @@
 ﻿using CustomerService.Application.Dto.Customer;
+using CustomerService.Application.Dto.CustomerAddress;
 using CustomerService.Application.Interface;
 using CustomerService.Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -25,24 +26,23 @@ namespace CustomerService.Controllers.CustomerAddressController
         {
             try
             {
-                //List<CustomerAddress> customers = await _unitOfWork.CustomerAddress.GetAllPageing(pageIndex, pageSize);
+                List<CustomerAddress> customerAddresses = await _unitOfWork.CustomerAddress.GetAllPageing(pageIndex, pageSize);
 
-                //List<ViewCustomerAddressDto> viewCustomerDtos = new();
-                //foreach (Customer item in customers)
-                //{
-                //    viewCustomerDtos.Add(new ViewCustomerAddressDto
-                //    {
-                //        CreateTime = item.CreateTime,
-                //        Email = item.Email,
-                //        Id = item.Id,
-                //        Name = item.Name,
-                //        Password = item.Password,
-                //        PhoneNumber = item.PhoneNumber,
-                //        UpdateTime = item.UpdateTime,
-                //    });
-                //}
-                //return Ok(viewCustomerDtos);
-                return NoContent();
+                List<ViewCustomerAddressDto> viewCustomerAddressDtos = new();
+                foreach (CustomerAddress item in customerAddresses)
+                {
+                    viewCustomerAddressDtos.Add(new ViewCustomerAddressDto
+                    {
+                        Address = item.Address,
+                        Id = item.Id,
+                        CreateTime = item.CreateTime,
+                        CustomerId = item.Id,
+                        GeoLat = item.GeoLat,
+                        GeoLon = item.GeoLon,
+                        UpdateTime = item.UpdateTime,
+                    });
+                }
+                return Ok(viewCustomerAddressDtos);
             }
             catch (Exception ex)
             {

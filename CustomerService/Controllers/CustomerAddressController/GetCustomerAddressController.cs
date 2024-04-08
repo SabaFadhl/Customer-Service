@@ -34,11 +34,11 @@ namespace CustomerService.Controllers.CustomerAddressController
                     {
                         Address = customerAddress.Address,
                         Id = customerAddress.Id,
-                        CreateTime = DateTime.Now,
+                        CreateTime = customerAddress.CreateTime,
                         CustomerId = customerAddress.Id,
                         GeoLat = customerAddress.GeoLat,
                         GeoLon = customerAddress.GeoLon,
-                        UpdateTime = DateTime.Now,
+                        UpdateTime = customerAddress.UpdateTime,
                     };
 
                     return Ok(viewCustomerAddressDto);
