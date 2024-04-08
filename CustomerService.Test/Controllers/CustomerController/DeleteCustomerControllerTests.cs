@@ -23,20 +23,11 @@ namespace CustomerService.Test.Controllers.CustomerController
         private readonly IFixture _fixture;
         private readonly Mock<IUnitOfWork> _serviceMock;       
         private readonly DeleteCustomerController _controller;
-        private readonly IMapper _mapperMock;
-
+       
         public DeleteCustomerControllerTests()
         {
             _fixture = new Fixture();
-            _serviceMock = _fixture.Freeze<Mock<IUnitOfWork>>();
-
-            var mapperMock = new Mock<IMapper>();
-
-            mapperMock.Setup(m => m.Map<AddCustomerDto, Customer>(It.IsAny<AddCustomerDto>()))
-                   .Returns((AddCustomerDto source) => new Customer());
-
-            _mapperMock = mapperMock.Object;
-
+            _serviceMock = _fixture.Freeze<Mock<IUnitOfWork>>();          
             _controller = new DeleteCustomerController(_serviceMock.Object);
         }
 
