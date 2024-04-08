@@ -20,15 +20,15 @@ namespace CustomerService.Controllers.CustomerAddressController
             _unitOfWork = unitOfWork;
         }
 
-        [HttpDelete("{customerId}")]
-        public async Task<IActionResult> Delete(string customerId)
+        [HttpDelete("{customerAddressId}")]
+        public async Task<IActionResult> Delete(string customerAddressId)
         {
             try
             {
-                Customer customer = await _unitOfWork.Customer.GetById(customerId);
-                if (customer != null)
+                CustomerAddress customerAddress = await _unitOfWork.CustomerAddress.GetById(customerAddressId);
+                if (customerAddress != null)
                 {
-                    _unitOfWork.Customer.Remove(customer);
+                    _unitOfWork.CustomerAddress.Remove(customerAddress);
 
                     await _unitOfWork.SaveChangesAsync();
 
