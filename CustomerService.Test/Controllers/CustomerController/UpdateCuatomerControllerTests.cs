@@ -43,5 +43,23 @@ namespace CustomerService.Test.Controllers.CustomerController
             var objectResult = Assert.IsAssignableFrom<NoContentResult>(result.Result);
             Assert.Equal(204, objectResult.StatusCode);
         }
+
+        [Fact]
+        public void UpdateCuatomer_Should_Return_NotFound_When_Wrong_CustomerId()
+        {
+            // Arrange           
+            Customer request = _fixture.Create<Customer>();
+            _serviceMock.Setup(x => x.Customer.GetById(request.Id)).ReturnsAsync((Customer)null);
+
+            var requestDto = _fixture.Create<UpdateCustomerDto>();
+            requestDto.PhoneNumber = "+967 123456789";
+
+            // Act
+            var result = _controller.Update(request.Id, requestDto);
+
+            // Assert            
+            var objectResult = Assert.IsAssignableFrom<NotFoundObjectResult>(result.Result);
+            Assert.Equal(404, objectResult.StatusCode);
+        }
     }
 }
