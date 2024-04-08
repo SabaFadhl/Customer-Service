@@ -2,7 +2,7 @@
 
 namespace CustomerService.Application.Dto.Customer
 {
-    public class UpdateCustomerAddressDto
+    public class UpdateCustomerDto
     {
         private string _name;
         private string _email;

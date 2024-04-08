@@ -1,4 +1,5 @@
 ﻿using CustomerService.Application.Dto.Customer;
+using CustomerService.Application.Dto.CustomerAddress;
 using CustomerService.Application.Interface;
 using CustomerService.Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -29,30 +30,11 @@ namespace CustomerService.Controllers.CustomerAddressController
             {
                 return BadRequest(new { errorMessage = "The Customer is null." });
             }
-            if (string.IsNullOrWhiteSpace(updateCustomerDto.Name))
+            if (string.IsNullOrWhiteSpace(updateCustomerDto.Address))
             {
-                return BadRequest(new { errorMessage = "You must enter Name of the Customer." });
+                return BadRequest(new { errorMessage = "You must enter Address." });
             }
-            if (string.IsNullOrWhiteSpace(updateCustomerDto.Email))
-            {
-                return BadRequest(new { errorMessage = "You must enter Email of the Customer." });
-            }
-            
-            if (string.IsNullOrWhiteSpace(updateCustomerDto.PhoneNumber))
-            {
-                return BadRequest(new { errorMessage = "You must enter PhoneNumber of the Customer." });
-            }
-            else
-            {
-                if (!Regex.IsMatch(updateCustomerDto.PhoneNumber, @"^\+967\s\d{9}$"))
-                {
-                    return BadRequest(new { errorMessage = "Invalid PhoneNumber, The PhoneNumber must be like this format: +000 000000000" });
-                }
-            }
-            if (string.IsNullOrWhiteSpace(updateCustomerDto.Password))
-            {
-                return BadRequest(new { errorMessage = "You must enter Password of the Customer." });
-            }
+           
             #endregion
 
             try

@@ -22,7 +22,7 @@ namespace CustomerService.Controllers.CustomerController
         }
 
         [HttpPut("{customerId}")]
-        public async Task<IActionResult> Update(string customerId, UpdateCustomerAddressDto updateCustomerDto)
+        public async Task<IActionResult> Update(string customerId, UpdateCustomerDto updateCustomerDto)
         {
             #region Validation Fields
             if (updateCustomerDto == null)
