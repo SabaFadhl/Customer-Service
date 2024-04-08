@@ -1,4 +1,5 @@
 ﻿using CustomerService.Application.Dto.Customer;
+using CustomerService.Application.Dto.CustomerAddress;
 using CustomerService.Application.Interface;
 using CustomerService.Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -20,28 +21,27 @@ namespace CustomerService.Controllers.CustomerAddressController
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet("{customerId}")]
-        public async Task<ActionResult> Get(string customerId)
+        [HttpGet("{customerAddressId}")]
+        public async Task<ActionResult> Get(string customerAddressId)
         {
             try
             {
-                CustomerAddress customerAddress = await _unitOfWork.CustomerAddress.GetById(customerId);
+                CustomerAddress customerAddress = await _unitOfWork.CustomerAddress.GetById(customerAddressId);
 
                 if (customerAddress != null)
                 {
-                    //ViewCustomerAddressDto viewCustomerDto = new ViewCustomerAddressDto
-                    //{
-                    //    PhoneNumber = customerAddress.PhoneNumber,
-                    //    Id = customer.Id,
-                    //    Name = customer.Name,
-                    //    Email = customer.Email,
-                    //    CreateTime = DateTime.Now,
-                    //    Password = customer.Password,
-                    //    UpdateTime = customer.UpdateTime,
-                    //};
+                    ViewCustomerAddressDto viewCustomerAddressDto = new ViewCustomerAddressDto
+                    {
+                        Address = customerAddress.Address,
+                        Id = customerAddress.Id,
+                        CreateTime = DateTime.Now,
+                        CustomerId = customerAddress.Id,
+                        GeoLat = customerAddress.GeoLat,
+                        GeoLon = customerAddress.GeoLon,
+                        UpdateTime = DateTime.Now,
+                    };
 
-                    // return Ok(viewCustomerDto);
-                    return NotFound();
+                    return Ok(viewCustomerAddressDto);
                 }
                 else
                 {

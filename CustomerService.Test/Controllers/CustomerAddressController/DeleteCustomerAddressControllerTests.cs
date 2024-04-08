@@ -17,7 +17,7 @@ using System.Text;
 using System.Threading.Tasks;
  
 
-namespace CustomerService.Test.Controllers.CustomerController
+namespace CustomerService.Test.Controllers.CustomerAddressController
 {
     public class DeleteCustomerAddressControllerTests
     {
