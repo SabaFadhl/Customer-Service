@@ -1,4 +1,4 @@
-﻿using CustomerService.Application.Dto;
+﻿using CustomerService.Application.Dto.Customer;
 using CustomerService.Application.Interface;
 using CustomerService.Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -64,6 +64,7 @@ namespace CustomerService.Controllers.CustomerController
                     customer.Email = updateCustomerDto.Email;
                     customer.Password = updateCustomerDto.Password;
                     customer.PhoneNumber = updateCustomerDto.PhoneNumber;
+                    customer.UpdateTime = DateTime.Now;
 
                     _unitOfWork.Customer.Update(customer);
 

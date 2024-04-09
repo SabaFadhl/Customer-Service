@@ -74,9 +74,12 @@ namespace CustomerService.Migrations
                         .HasColumnType("character varying(500)");
 
                     b.Property<DateTime>("CreateTime")
-                        .HasColumnType("timestamp with time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("CustomerId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<float>("GeoLat")
@@ -99,7 +102,9 @@ namespace CustomerService.Migrations
                 {
                     b.HasOne("CustomerService.Domain.Customer", null)
                         .WithMany("CustomerAddresses")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CustomerService.Domain.Customer", b =>

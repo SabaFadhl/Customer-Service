@@ -1,4 +1,4 @@
-﻿using CustomerService.Application.Dto;
+﻿using CustomerService.Application.Dto.Customer;
 using CustomerService.Application.Interface;
 using CustomerService.Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -35,8 +35,7 @@ namespace CustomerService.Controllers.CustomerController
                         Id = customer.Id,
                         Name = customer.Name,
                         Email = customer.Email,
-                        CreateTime = DateTime.Now,
-                        Password = customer.Password,
+                        CreateTime = DateTime.Now,                      
                         UpdateTime = customer.UpdateTime,
                     };
 

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CustomerService.Application.Dto
+namespace CustomerService.Application.Dto.Customer
 {
-    public class UpdateCustomerDto
+    public class AddCustomerDto
     {
         private string _name;
         private string _email;
@@ -13,7 +13,9 @@ namespace CustomerService.Application.Dto
 
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get => _email; set => _email = value; }
+
         public string Password { get => _password; set => _password = value; }
+
         public string PhoneNumber { get => _phoneNumber; set => _phoneNumber = value; }
     }
 }

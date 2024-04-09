@@ -1,7 +1,9 @@
 ﻿using AutoFixture;
 using AutoMapper;
 using Castle.Core.Resource;
-using CustomerService.Application.Dto;
+using CustomerService.Application.Dto.Common;
+using CustomerService.Application.Dto.Customer;
+using CustomerService.Application.Dto.CustomerAddress;
 using CustomerService.Application.Interface;
 using CustomerService.Controllers.CustomerController;
 using CustomerService.Domain;
@@ -46,9 +48,10 @@ namespace CustomerService.Test.Controllers.CustomerController
         {
             // Arrange
             var request = _fixture.Create<AddCustomerDto>();
-            request.PhoneNumber = "+967 772345678";
-            var customer = _mapperMock.Map<AddCustomerDto, Customer>(request);
+            request.PhoneNumber = "+967 123456789";
+            var customer = _mapperMock.Map<AddCustomerDto, Customer>(request);            
             _serviceMock.Setup(x => x.Customer.Add(customer)).Verifiable();
+           
 
             // Act
             var result = _controller.Add(request);

@@ -32,8 +32,8 @@ namespace CustomerService.Application.Interface
         void RemoveRange(IEnumerable<TEntity> entities);
         void Attach(TEntity entity);
         void Detach(TEntity entity);
-        void Dispose();
-       
+        void Dispose();       
         Task<List<TEntity>> GetAllPageing(int pageIndex, int pageSize);
+        List<TEntity> FindByCondition(Expression<Func<TEntity, bool>> expression, string[] includes = null);
     }
 }
