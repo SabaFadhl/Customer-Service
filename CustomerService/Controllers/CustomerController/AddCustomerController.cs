@@ -1,4 +1,6 @@
 ﻿using CustomerService.Application.Dto;
+using CustomerService.Application.Dto.Common;
+using CustomerService.Application.Dto.Customer;
 using CustomerService.Application.Interface;
 using CustomerService.Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -47,7 +49,7 @@ namespace CustomerService.Controllers.CustomerController
             {
                 if (!Regex.IsMatch(addCustomerDto.PhoneNumber, @"^\+967\s\d{9}$"))
                 {
-                    return BadRequest(new { errorMessage = "Invalid PhoneNumber, The PhoneNumber must be like this format: +000 000000000" });
+                    return BadRequest(new { errorMessage = "Invalid PhoneNumber, The PhoneNumber must be like this format: +967 000000000" });
                 }
             }
             if (string.IsNullOrWhiteSpace(addCustomerDto.Password))

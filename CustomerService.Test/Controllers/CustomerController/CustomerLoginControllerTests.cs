@@ -1,6 +1,5 @@
 ﻿using AutoFixture;
 using AutoMapper;
-using CustomerService.Application.Dto;
 using CustomerService.Application.Interface;
 using CustomerService.Controllers.CustomerController;
 using CustomerService.Domain;
@@ -16,11 +15,12 @@ using CustomerService.Test.Controllers;
 using System.Diagnostics.Metrics;
 using Microsoft.AspNetCore.Identity;
 using System.Text.RegularExpressions;
+using CustomerService.Application.Dto.Customer;
 
 
 namespace CustomerService.Test.Controllers.CustomerController
 {
-    
+
     public class CustomerLoginControllerTests
     {
         private readonly IFixture _fixture;
@@ -28,7 +28,8 @@ namespace CustomerService.Test.Controllers.CustomerController
         private readonly CustomerLoginController _controller;
         private readonly IMapper _mapperMock;
 
-        public CustomerLoginControllerTests() {
+        public CustomerLoginControllerTests()
+        {
             _fixture = new Fixture();
             _serviceMock = _fixture.Freeze<Mock<IUnitOfWork>>();
 
@@ -41,10 +42,8 @@ namespace CustomerService.Test.Controllers.CustomerController
             _mapperMock = mapperMock.Object;
 
             _controller = new CustomerLoginController(_serviceMock.Object);
-
-
         }
-       
+
         [Fact]
         public void CustomerLogin_Should_Return_BadRequest_For_NotNull_EmailOrName()
         {
@@ -67,10 +66,8 @@ namespace CustomerService.Test.Controllers.CustomerController
 
             string stringValue = (string)value;
             Assert.False(string.IsNullOrEmpty(stringValue));
-
-
         }
-      
+
 
         [Fact]
         public void Password_Should_Contain_Numbers_Letters_Symbols()
@@ -78,7 +75,6 @@ namespace CustomerService.Test.Controllers.CustomerController
             // Arrange
             var request = _fixture.Create<CustomerLoginDto>();
             request.Password = "Abcd123!";// Set a password containing numbers, letters, and symbols (the same the rule)
-
 
             // Act
             var containsNumbers = Regex.IsMatch(request.Password, @"\d"); // Check for numbers

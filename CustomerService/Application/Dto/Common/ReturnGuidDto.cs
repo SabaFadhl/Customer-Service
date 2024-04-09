@@ -1,4 +1,4 @@
-﻿namespace CustomerService.Application.Dto
+﻿namespace CustomerService.Application.Dto.Common
 {
     public class ReturnGuidDto
     {

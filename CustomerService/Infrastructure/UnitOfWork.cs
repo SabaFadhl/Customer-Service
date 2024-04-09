@@ -11,12 +11,14 @@ namespace CustomerService.Infrastructure
         private bool _disposed;
 
         public IRepository<Customer> Customer { get; private set; }
+        public IRepository<CustomerAddress> CustomerAddress { get; private set; }
 
         public UnitOfWork(MasterContext context)
         {
             _context = context;
             _disposed = false;
             Customer = new Repository<Customer>(_context);
+            CustomerAddress = new Repository<CustomerAddress>(_context);
         }
 
         public async Task SaveChangesAsync()
