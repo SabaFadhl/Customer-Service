@@ -7,7 +7,6 @@ using CustomerService.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Newtonsoft.Json;
-using RestAssured.Response.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +57,7 @@ namespace CustomerService.Test.Controllers.CustomerController
             var result = _controller.Delete(customerId);
 
             // Assert            
-            var objectResult = Assert.IsAssignableFrom<NotFoundResult>(result.Result);
+            var objectResult = Assert.IsAssignableFrom<NotFoundObjectResult>(result.Result);
             Assert.Equal(404, objectResult.StatusCode);
         }
     }

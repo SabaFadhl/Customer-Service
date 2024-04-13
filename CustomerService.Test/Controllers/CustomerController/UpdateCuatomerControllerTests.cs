@@ -27,7 +27,7 @@ namespace CustomerService.Test.Controllers.CustomerController
         }
 
         [Fact]
-        public void UpdateCuatomer_Should_Return_NoContent()
+        public void UpdateCutomer_Should_Return_NoContent()
         {
             // Arrange           
             Customer request = _fixture.Create<Customer>();
@@ -45,7 +45,7 @@ namespace CustomerService.Test.Controllers.CustomerController
         }
 
         [Fact]
-        public void UpdateCuatomer_Should_Return_NotFound_When_Wrong_CustomerId()
+        public void UpdateCutomer_Should_Return_NotFound_When_Wrong_CustomerId()
         {
             // Arrange           
             Customer request = _fixture.Create<Customer>();

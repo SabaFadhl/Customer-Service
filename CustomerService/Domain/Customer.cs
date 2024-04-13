@@ -18,6 +18,7 @@ namespace CustomerService.Domain
         private List<CustomerAddress> _customerAddresses;
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get => _id; set => _id = value; }
 
         [MaxLength(150, ErrorMessage = "This field must be less than or equals 150 character")]
