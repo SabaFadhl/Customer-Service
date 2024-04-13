@@ -14,21 +14,18 @@ namespace CustomerService.Migrations
             migrationBuilder.EnsureSchema(
                 name: "customer");
 
-            migrationBuilder.AlterDatabase()
-                .Annotation("Npgsql:PostgresExtension:uuid-ossp", ",,");
-
             migrationBuilder.CreateTable(
                 name: "Customer",
                 schema: "customer",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false, defaultValueSql: "uuid_generate_v4()"),
+                    Id = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
                     Email = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
                     Password = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     PhoneNumber = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    UpdateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,13 +37,13 @@ namespace CustomerService.Migrations
                 schema: "customer",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    CustomerId = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: false),
+                    CustomerId = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: false),
                     Address = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     GeoLat = table.Column<float>(type: "real", nullable: false),
                     GeoLon = table.Column<float>(type: "real", nullable: false),
                     CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    UpdateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
