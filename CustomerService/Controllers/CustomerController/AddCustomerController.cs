@@ -73,8 +73,9 @@ namespace CustomerService.Controllers.CustomerController
                     Name = addCustomerDto.Name,
                     Email = addCustomerDto.Email,
                     Password = addCustomerDto.Password,
-                    PhoneNumber = addCustomerDto.PhoneNumber
-                };
+                    PhoneNumber = addCustomerDto.PhoneNumber,
+                    UpdateTime = DateTime.Now
+            };
 
                 _unitOfWork.Customer.Add(customer);
 
