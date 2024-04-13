@@ -15,9 +15,11 @@ namespace CustomerService.Domain
         private DateTime _updateTime;
 
         [Key]
+        [MaxLength(60, ErrorMessage = "This field must be less than or equals 60 character")]
         public string Id { get => _id; set => _id = value; }
 
         [Required]
+        [MaxLength(60, ErrorMessage = "This field must be less than or equals 60 character")]
         public string CustomerId { get => _customerId; set => _customerId = value; }
 
         [Required]

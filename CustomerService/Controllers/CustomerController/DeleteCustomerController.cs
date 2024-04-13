@@ -37,9 +37,8 @@ namespace CustomerService.Controllers.CustomerController
                 }
                 else
                 {
-                    return NotFound();
+                    return NotFound(new { ErrorMessage = "There is no Customer with this Id '" + customerId + "'" });
                 }
-
             }
             catch (Exception ex)
             {

@@ -8,7 +8,6 @@ using CustomerService.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Newtonsoft.Json;
-using RestAssured.Response.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;

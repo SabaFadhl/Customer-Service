@@ -35,9 +35,6 @@ namespace CustomerService.Test.Controllers.CustomerController
 
             var mapperMock = new Mock<IMapper>();
 
-            mapperMock.Setup(m => m.Map<AddCustomerDto, Customer>(It.IsAny<AddCustomerDto>()))
-               .Returns((AddCustomerDto source) => new Customer());
-
             _mapperMock = mapperMock.Object;
 
             _controller = new AddCustomerController(_serviceMock.Object);

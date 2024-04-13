@@ -33,7 +33,10 @@ namespace CustomerService.Test.Controllers.CustomerAddressController
         {
             // Arrange           
             CustomerAddress request = _fixture.Create<CustomerAddress>();
-            _serviceMock.Setup(x => x.CustomerAddress.GetById(request.Id)).ReturnsAsync(request);           
+            _serviceMock.Setup(x => x.CustomerAddress.GetById(request.Id)).ReturnsAsync(request);
+
+            Customer requestCustomer = _fixture.Create<Customer>();
+            _serviceMock.Setup(x => x.Customer.GetById(request.CustomerId)).ReturnsAsync(requestCustomer);
 
             // Act
             var result = _controller.Get(request.Id);
@@ -44,11 +47,14 @@ namespace CustomerService.Test.Controllers.CustomerAddressController
         }
 
         [Fact]
-        public void GetCustomer_Should_Return_NotFound_When_Wron_Id()
+        public void GetCustomer_Should_Return_NotFound_When_Wrong_Id()
         {
             // Arrange           
             CustomerAddress request = _fixture.Create<CustomerAddress>();
             _serviceMock.Setup(x => x.CustomerAddress.GetById(request.Id)).ReturnsAsync((CustomerAddress)null);
+
+            Customer requestCustomer = _fixture.Create<Customer>();
+            _serviceMock.Setup(x => x.Customer.GetById(request.CustomerId)).ReturnsAsync(requestCustomer);
 
             // Act
             var result = _controller.Get(request.Id);

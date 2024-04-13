@@ -19,7 +19,7 @@ namespace CustomerService.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasPostgresExtension("uuid-ossp");
+            //modelBuilder.HasPostgresExtension("uuid-ossp");
 
             modelBuilder.Entity<Customer>(entity =>
             {
@@ -31,8 +31,8 @@ namespace CustomerService.Infrastructure
                    .HasColumnType("timestamp without time zone")
                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                entity.Property(e => e.Id)
-                    .HasDefaultValueSql("uuid_generate_v4()");
+                //entity.Property(e => e.Id)
+                //    .HasDefaultValueSql("uuid_generate_v4()");
             });
 
             modelBuilder.Entity<CustomerAddress>(entity =>

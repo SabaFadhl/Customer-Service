@@ -26,13 +26,15 @@ namespace CustomerService.Controllers.CustomerAddressController
         {
             try
             {
-                CustomerAddress customerAddress = await _unitOfWork.CustomerAddress.GetById(customerAddressId);
-
+                CustomerAddress customerAddress = await _unitOfWork.CustomerAddress.GetById(customerAddressId);               
                 if (customerAddress != null)
                 {
+                    Customer customer = await _unitOfWork.Customer.GetById(customerAddress.CustomerId);
+
                     ViewCustomerAddressDto viewCustomerAddressDto = new ViewCustomerAddressDto
                     {
                         Address = customerAddress.Address,
+                        PhoneNumber = customer.PhoneNumber,
                         Id = customerAddress.Id,
                         CreateTime = customerAddress.CreateTime,
                         CustomerId = customerAddress.Id,
