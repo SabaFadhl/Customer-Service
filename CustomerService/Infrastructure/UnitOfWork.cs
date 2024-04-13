@@ -1,4 +1,7 @@
 ﻿using CustomerService.Application.Interface;
+using CustomerService.Domain;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace CustomerService.Infrastructure
 {
@@ -7,15 +10,15 @@ namespace CustomerService.Infrastructure
         private readonly MasterContext _context;
         private bool _disposed;
 
+        public IRepository<Customer> Customer { get; private set; }
+        public IRepository<CustomerAddress> CustomerAddress { get; private set; }
+
         public UnitOfWork(MasterContext context)
         {
             _context = context;
             _disposed = false;
-        }
-
-        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
-        {
-            return new Repository<TEntity>(_context);
+            Customer = new Repository<Customer>(_context);
+            CustomerAddress = new Repository<CustomerAddress>(_context);
         }
 
         public async Task SaveChangesAsync()

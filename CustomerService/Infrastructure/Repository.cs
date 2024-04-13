@@ -1,4 +1,5 @@
 ﻿using CustomerService.Application.Interface;
+using CustomerService.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -69,8 +70,11 @@ namespace CustomerService.Infrastructure
         {
             return _context.Set<TEntity>().FirstOrDefault(predicate);
         }
+
+     
+
         public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
-        {
+        {           
             return await _context.Set<TEntity>().FirstOrDefaultAsync(predicate);
         }
         public async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
@@ -142,6 +146,20 @@ namespace CustomerService.Infrastructure
         public async Task<bool> AnyAsync()
         {
            return await _context.Set<TEntity>().AnyAsync();
+        }
+
+        public List<TEntity> FindByCondition(Expression<Func<TEntity, bool>> expression, string[] includes = null)
+        {
+            IQueryable<TEntity> query = _context.Set<TEntity>();
+
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+            return query.Where(expression).ToList();
         }
     }
 }

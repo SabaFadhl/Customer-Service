@@ -13,24 +13,38 @@ namespace CustomerService.Infrastructure
         }
 
         public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; }
-        
+        public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; }        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasPostgresExtension("uuid-ossp");
+            //modelBuilder.HasPostgresExtension("uuid-ossp");
 
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.Property(e => e.CreateTime)
                     .HasColumnType("timestamp without time zone")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
-                entity.Property(e => e.Id)
-                    .HasDefaultValueSql("uuid_generate_v4()");
-            });           
 
+                entity.Property(e => e.UpdateTime)
+                   .HasColumnType("timestamp without time zone")
+                   .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                //entity.Property(e => e.Id)
+                //    .HasDefaultValueSql("uuid_generate_v4()");
+            });
+
+            modelBuilder.Entity<CustomerAddress>(entity =>
+            {
+                entity.Property(e => e.CreateTime)
+                    .HasColumnType("timestamp without time zone")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.UpdateTime)
+                    .HasColumnType("timestamp without time zone")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            });
         }
     }
 }

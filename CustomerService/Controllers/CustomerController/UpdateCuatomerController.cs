@@ -1,10 +1,11 @@
-﻿using CustomerService.Application.Dto;
+﻿using CustomerService.Application.Dto.Customer;
 using CustomerService.Application.Interface;
 using CustomerService.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace CustomerService.Controllers.CustomerController
@@ -36,9 +37,17 @@ namespace CustomerService.Controllers.CustomerController
             {
                 return BadRequest(new { errorMessage = "You must enter Email of the Customer." });
             }
+            
             if (string.IsNullOrWhiteSpace(updateCustomerDto.PhoneNumber))
             {
                 return BadRequest(new { errorMessage = "You must enter PhoneNumber of the Customer." });
+            }
+            else
+            {
+                if (!Regex.IsMatch(updateCustomerDto.PhoneNumber, @"^\+967\s\d{9}$"))
+                {
+                    return BadRequest(new { errorMessage = "Invalid PhoneNumber, The PhoneNumber must be like this format: +000 000000000" });
+                }
             }
             if (string.IsNullOrWhiteSpace(updateCustomerDto.Password))
             {
@@ -48,15 +57,16 @@ namespace CustomerService.Controllers.CustomerController
 
             try
             {
-                Customer customer = await _unitOfWork.GetRepository<Customer>().GetById(customerId);                                                 
+                Customer customer = await _unitOfWork.Customer.GetById(customerId);                                                 
                 if (customer != null)
                 {                   
                     customer.Name = updateCustomerDto.Name;
                     customer.Email = updateCustomerDto.Email;
                     customer.Password = updateCustomerDto.Password;
                     customer.PhoneNumber = updateCustomerDto.PhoneNumber;
+                    customer.UpdateTime = DateTime.Now;
 
-                    _unitOfWork.GetRepository<Customer>().Update(customer);
+                    _unitOfWork.Customer.Update(customer);
 
                     await _unitOfWork.SaveChangesAsync();
 

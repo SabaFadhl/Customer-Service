@@ -18,13 +18,20 @@ namespace CustomerService.Domain
         private List<CustomerAddress> _customerAddresses;
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get => _id; set => _id = value; }
+
         [MaxLength(150, ErrorMessage = "This field must be less than or equals 150 character")]
         public string Name { get => _name; set => _name = value; }
+       
+        [Required]
         [MaxLength(150, ErrorMessage = "This field must be less than or equals 150 character")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get => _email; set => _email = value; }
+
         [MaxLength(500, ErrorMessage = "This field must be less than or equals 150 character")]
         public string Password { get => _password; set => _password = value; }
+
         [MaxLength(50, ErrorMessage = "This field must be less than or equals 150 character")]
         public string PhoneNumber { get => _phoneNumber; set => _phoneNumber = value; }         
         public DateTime CreateTime { get => _createTime; set => _createTime = value; }

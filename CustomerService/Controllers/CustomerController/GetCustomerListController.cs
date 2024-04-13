@@ -1,4 +1,4 @@
-﻿using CustomerService.Application.Dto;
+﻿using CustomerService.Application.Dto.Customer;
 using CustomerService.Application.Interface;
 using CustomerService.Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +25,7 @@ namespace CustomerService.Controllers.CustomerController
         {
             try
             {
-                List<Customer> customers = await _unitOfWork.GetRepository<Customer>().GetAllPageing(pageIndex, pageSize);
+                List<Customer> customers = await _unitOfWork.Customer.GetAllPageing(pageIndex, pageSize);
 
                 List<ViewCustomerDto> viewCustomerDtos = new();
                 foreach (Customer item in customers)
@@ -35,8 +35,7 @@ namespace CustomerService.Controllers.CustomerController
                         CreateTime = item.CreateTime,
                         Email = item.Email,
                         Id = item.Id,
-                        Name = item.Name,
-                        Password = item.Password,
+                        Name = item.Name,                     
                         PhoneNumber = item.PhoneNumber,
                         UpdateTime = item.UpdateTime,
                     });

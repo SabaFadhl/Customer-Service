@@ -14,12 +14,24 @@ namespace CustomerService.Domain
         private DateTime _createTime;
         private DateTime _updateTime;
 
+        [Key]
+        [MaxLength(60, ErrorMessage = "This field must be less than or equals 60 character")]
         public string Id { get => _id; set => _id = value; }
+
+        [Required]
+        [MaxLength(60, ErrorMessage = "This field must be less than or equals 60 character")]
+        public string CustomerId { get => _customerId; set => _customerId = value; }
+
+        [Required]
         [MaxLength(500, ErrorMessage = "This field must be less than or equals 150 character")]
-        public string Address { get => _address; set => _address = value; }       
+        public string Address { get => _address; set => _address = value; }  
+        
         public float GeoLat { get => _geoLat; set => _geoLat = value; }
+
         public float GeoLon { get => _geoLon; set => _geoLon = value; }
+
         public DateTime CreateTime { get => _createTime; set => _createTime = value; }
         public DateTime UpdateTime { get => _updateTime; set => _updateTime = value; }
+       
     }
 }
