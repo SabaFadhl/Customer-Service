@@ -57,6 +57,7 @@ namespace CustomerService.Controllers.CustomerAddressController
                     Address = AddCustomerAddressDto.Address,
                     GeoLat = AddCustomerAddressDto.GeoLat,
                     GeoLon = AddCustomerAddressDto.GeoLon,
+                    UpdateTime = DateTime.Now
                 };
 
                 _unitOfWork.CustomerAddress.Add(customerAddress);
