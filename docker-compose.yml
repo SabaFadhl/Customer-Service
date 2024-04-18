@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
-      POSTGRES_DB: customerservice11
+      POSTGRES_DB: customerservice
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
@@ -22,9 +22,9 @@ services:
       context: .
       dockerfile: CustomerService/Dockerfile
     ports:
-      - "8180:80"
+      - 9050:80
     environment:
-      - ConnectionStrings__pglConnectionString=Host=post-db;Port=5432;Database=customerservice11;Username=postgres;Password=postgres  # Pass connection string as environment variable
+      - ConnectionStrings__pglConnectionString=Host=post-db;Port=5432;Database=customerservice;Username=postgres;Password=postgres;Include Error Detail=true;  # Pass connection string as environment variable
     depends_on:
       - post-db
     networks:
