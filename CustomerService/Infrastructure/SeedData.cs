@@ -14,17 +14,18 @@ namespace Library.DataAccess.Data
             {
 
                 context.Database.Migrate();
-
+             
                 if (!context.Customers.Any())
                 {
+
                     var count = 10;
                     List<Customer> customers = new List<Customer>();
-
                     for (int i = 0; i < count; i++)
                     {
+                         var id = Guid.NewGuid().ToString();
                         Customer customer = new Customer
                         {
-                            Id = Guid.NewGuid().ToString(),
+                            Id = id,
                             Name = GetRandomArabicName(count),
                             Email = $"customer{i + 1}@example.com",
                             Password = "password", // You may want to generate random passwords
@@ -35,9 +36,9 @@ namespace Library.DataAccess.Data
                                 {
                                     new CustomerAddress
                                     {
-                                        Id = Guid.NewGuid().ToString(),
-                                        CustomerId = "", // Fill in customer ID when added to database
-                                        Address = "Address " + (i + 1),
+                                        Id =  Guid.NewGuid().ToString(),
+                                        CustomerId = id, // Fill in customer ID when added to database
+                                        Address = "Address " + i,
                                         GeoLat = 0, // Fill in actual coordinates
                                         GeoLon = 0, // Fill in actual coordinates
                                         CreateTime = DateTime.Now,
@@ -46,12 +47,23 @@ namespace Library.DataAccess.Data
                                 }
                         };
 
-                        customers.Add(customer);
-                    }
-                    context.Customers.AddRangeAsync(customers);
-                    context.SaveChanges();
+                    customers.Add(customer);
                 }
-            }
+                try
+                    {
+                        Console.WriteLine(customers);
+                        context.Customers.AddRange(customers);
+                        context.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw;
+                    }
+                
+                }
+                }
+            
         }
         static private string GetRandomArabicName(int count)
         {

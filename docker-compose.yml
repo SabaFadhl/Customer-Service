@@ -1,8 +1,38 @@
 version: '3.4'
 
 services:
+  post-db:
+    container_name: post-db
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: customerservice
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - delivery
+
   customerservice:
+    container_name: customerservice
     image: ${DOCKER_REGISTRY-}customerservice
     build:
       context: .
       dockerfile: CustomerService/Dockerfile
+    ports:
+      - 9050:8080
+    environment:
+      - ConnectionStrings__pglConnectionString=Host=post-db;Port=5432;Database=customerservice;Username=postgres;Password=postgres;Include Error Detail=true;  # Pass connection string as environment variable
+    depends_on:
+      - post-db
+    networks:
+      - delivery
+
+networks:
+  delivery:
+#     driver: bridge
+
+volumes:
+  pgdata: {}
