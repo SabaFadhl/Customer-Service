@@ -1,5 +1,6 @@
 using CustomerService.Application.Interface;
 using CustomerService.Infrastructure;
+using Library.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+//Seed Date
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedData.Initialize(services);
+}
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
