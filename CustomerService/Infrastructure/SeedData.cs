@@ -17,43 +17,55 @@ namespace Library.DataAccess.Data
 
                 if (!context.Customers.Any())
                 {
+
                     var count = 10;
                     List<Customer> customers = new List<Customer>();
-
                     for (int i = 0; i < count; i++)
                     {
+                        var id = Guid.NewGuid().ToString();
                         Customer customer = new Customer
                         {
-                            Id = Guid.NewGuid().ToString(),
-                            Name = GetRandomArabicName(count),
-                            Email = $"customer{i + 1}@example.com",
+                            Id = id,
+                            Name = GetRandomArabicName(i),
+                            Email = $"customer{i}@example.com",
                             Password = "password", // You may want to generate random passwords
                             PhoneNumber = GetRandomPhoneNumber(),
                             CreateTime = DateTime.Now,
                             UpdateTime = DateTime.Now,
                             CustomerAddresses = new List<CustomerAddress>
-                                {
-                                    new CustomerAddress
-                                    {
-                                        Id = Guid.NewGuid().ToString(),
-                                        CustomerId = "", // Fill in customer ID when added to database
-                                        Address = "Address " + (i + 1),
-                                        GeoLat = 0, // Fill in actual coordinates
-                                        GeoLon = 0, // Fill in actual coordinates
-                                        CreateTime = DateTime.Now,
-                                        UpdateTime = DateTime.Now
-                                    }
-                                }
+                             {
+                                 new CustomerAddress
+                                 {
+                                     Id =  Guid.NewGuid().ToString(),
+                                     CustomerId = id, // Fill in customer ID when added to database
+                                     Address = "Address " + i,
+                                     GeoLat = 0, // Fill in actual coordinates
+                                     GeoLon = 0, // Fill in actual coordinates
+                                     CreateTime = DateTime.Now,
+                                     UpdateTime = DateTime.Now
+                                 }
+                             }
                         };
 
                         customers.Add(customer);
                     }
-                    context.Customers.AddRangeAsync(customers);
-                    context.SaveChanges();
+                    try
+                    {
+                        Console.WriteLine(customers);
+                        context.Customers.AddRange(customers);
+                        context.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw;
+                    }
+
                 }
             }
+
         }
-        static private string GetRandomArabicName(int count)
+        static private string GetRandomArabicName(int index)
         {
             // You can add more names to the list according to your needs
             string[] names = {
@@ -71,7 +83,7 @@ namespace Library.DataAccess.Data
 
 
             Random rand = new Random();
-            return names[count-1];
+            return names[index];
         }
         static private string GetRandomPhoneNumber()
         {
