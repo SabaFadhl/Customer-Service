@@ -32,9 +32,28 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-// Apply CORS policy
+
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
 app.UseCors("AllowAll");
-//Seed Date
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+
+    // Add this line to redirect from "/" to the Swagger UI
+    endpoints.MapGet("/", context => { context.Response.Redirect("/swagger"); return Task.CompletedTask; });
+});
+
+app.MapControllers();
+
+//Seed Data
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
