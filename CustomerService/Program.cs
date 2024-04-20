@@ -32,7 +32,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+// Apply CORS policy
+app.UseCors("AllowAll");
+//Seed Date
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedData.Initialize(services);
+}
 app.UseHttpsRedirection();
 
 app.UseRouting();
