@@ -38,7 +38,7 @@ jobs:
       run: dotnet test CustomerService/CustomerService.csproj --no-restore --verbosity normal
 
     - name: Publish
-      run: dotnet publish --configuration Release --no-build --output ./publish
+      run: dotnet publish CustomerService/CustomerService.csproj --configuration Release --no-build --output ./publish
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
