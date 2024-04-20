@@ -29,13 +29,13 @@ jobs:
         dotnet-version: 5.0.x
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore CustomerService/CustomerService.csproj
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build CustomerService/CustomerService.csproj --configuration Release --no-restore
 
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test CustomerService/CustomerService.csproj --no-restore --verbosity normal
 
     - name: Publish
       run: dotnet publish --configuration Release --no-build --output ./publish

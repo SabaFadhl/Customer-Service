@@ -1,7 +1,7 @@
 name: Docker Publish
 on:
   pull_request:
-    branches: [ master, feat/actions  ]
+    branches: [ master, develop, feat/actions  ]
   push:
     branches: [ feat/actions ]
 
