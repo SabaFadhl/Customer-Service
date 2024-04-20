@@ -1,0 +1,71 @@
+﻿ apiVersion: v1
+ kind: Service
+ metadata:
+  name: post-db
+  namespace: customerservice
+  labels:
+    app: post-db
+ spec:
+  ports:
+  - port: 5432
+    name: post-db
+  clusterIP: None
+  selector:
+    app: post-db
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  selector:
+    matchLabels:
+      app: post-db
+  serviceName: post-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: post-db
+    spec:
+      containers:
+      - name: post-db
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+          name: post-db
+        env:
+        - name: POSTGRES_DB
+          value: coustomer
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret  
+              key: nusibah
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: password
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+---
+# Secret Manifest:
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-secret
+type: Opaque  
+data:
+  username: postgres 
+  password: postgres
