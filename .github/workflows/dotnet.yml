@@ -1,5 +1,5 @@
 # This workflow will build a .NET project
-name: .NET
+name: .NET Build
 
 on:
   pull_request:
