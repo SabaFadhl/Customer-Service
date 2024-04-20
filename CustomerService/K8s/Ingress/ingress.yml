@@ -1,0 +1,24 @@
+﻿apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: customerservice-ingress
+  namespace: customerservice
+spec:
+  rules:
+    - host: exmple.com
+      http:
+        paths:
+          - path: /customer
+            pathType: Prefix
+            backend:
+              service:
+                name: customerservice-service
+                port:
+                  number: 9090
+          - path: /delivery
+            pathType: Prefix
+            backend:
+              service:
+                name: delivery-service
+                port:
+                  number: 9091
