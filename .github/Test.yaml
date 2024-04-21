@@ -1,0 +1,47 @@
+name: Test
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore DeliveryServiceTest/DeliveryServiceTest.csproj
+
+    - name: Build
+      run: dotnet build DeliveryServiceTest/DeliveryServiceTest.csproj --configuration Release --no-restore
+
+    - name: Test
+      run: dotnet test DeliveryServiceTest/DeliveryServiceTest.csproj --no-restore --verbosity normal
+
+    - name: Publish
+      run: dotnet publish DeliveryServiceTest/DeliveryServiceTest.csproj --configuration Release --no-build --output ./publish
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: ./publish/
