@@ -20,15 +20,13 @@ namespace CustomerService.Migrations
                 .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "uuid-ossp");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("CustomerService.Domain.Customer", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("text")
-                        .HasDefaultValueSql("uuid_generate_v4()");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
@@ -56,7 +54,7 @@ namespace CustomerService.Migrations
                         .HasColumnType("character varying(50)");
 
                     b.Property<DateTime>("UpdateTime")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
@@ -66,7 +64,8 @@ namespace CustomerService.Migrations
             modelBuilder.Entity("CustomerService.Domain.CustomerAddress", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text");
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -80,7 +79,8 @@ namespace CustomerService.Migrations
 
                     b.Property<string>("CustomerId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)");
 
                     b.Property<float>("GeoLat")
                         .HasColumnType("real");
@@ -89,7 +89,7 @@ namespace CustomerService.Migrations
                         .HasColumnType("real");
 
                     b.Property<DateTime>("UpdateTime")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
