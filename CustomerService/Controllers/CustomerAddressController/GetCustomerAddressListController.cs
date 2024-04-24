@@ -36,7 +36,7 @@ namespace CustomerService.Controllers.CustomerAddressController
                         Address = item.Address,
                         Id = item.Id,
                         CreateTime = item.CreateTime,
-                        CustomerId = item.Id,
+                        CustomerId = item.CustomerId,
                         GeoLat = item.GeoLat,
                         GeoLon = item.GeoLon,
                         UpdateTime = item.UpdateTime,

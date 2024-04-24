@@ -19,13 +19,15 @@ namespace Library.DataAccess.Data
                 {
 
                     var count = 10;
-                    List<Customer> customers = new List<Customer>();
+                    List<Customer> customers = new List<Customer>(); 
+                    var id = "691729e1-3d23-4af3-bdcc-b7545078d5e";
+                    var addressId = "691729e1-3d23-4af3-bdcc-b75458rrr";
                     for (int i = 0; i < count; i++)
                     {
-                        var id = Guid.NewGuid().ToString();
+                        var custId = id + i;
                         Customer customer = new Customer
                         {
-                            Id = id,
+                            Id = custId,
                             Name = GetRandomArabicName(i),
                             Email = $"customer{i}@example.com",
                             Password = "password", // You may want to generate random passwords
@@ -36,8 +38,8 @@ namespace Library.DataAccess.Data
                              {
                                  new CustomerAddress
                                  {
-                                     Id =  Guid.NewGuid().ToString(),
-                                     CustomerId = id, // Fill in customer ID when added to database
+                                     Id =  addressId+i,
+                                     CustomerId = custId, // Fill in customer ID when added to database
                                      Address = "Address " + i,
                                      GeoLat = 0, // Fill in actual coordinates
                                      GeoLon = 0, // Fill in actual coordinates
@@ -82,7 +84,6 @@ namespace Library.DataAccess.Data
             };
 
 
-            Random rand = new Random();
             return names[index];
         }
         static private string GetRandomPhoneNumber()
